@@ -1,0 +1,1 @@
+sudo docker run -v <path to data>:/data et2 /data/videos.txt /data/output

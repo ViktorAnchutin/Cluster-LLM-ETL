@@ -2,10 +2,11 @@
 import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
 from transform_utils import *
+import sys
 
 
-def main():
-    with open("videos.txt", 'r') as file:
+def main(input_file, output_dir):
+    with open(input_file, 'r') as file:
         videos = [line.strip() for line in file]
 
     transcripts = [YouTubeTranscriptApi.get_transcript(video_id) for video_id in videos]
@@ -22,9 +23,9 @@ def main():
 
     documents_json = split_video_df.to_json(orient="index")
 
-    with open("transcripts.json", "w") as f:
+    with open(f"{output_dir}/transcripts.json", "w") as f:
         f.write(documents_json)
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1], sys.argv[2])
