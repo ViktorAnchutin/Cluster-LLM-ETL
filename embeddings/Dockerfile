@@ -14,4 +14,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN mkdir data
 
 # Specify the command to run on container start with CMD
-CMD ["python", "extract_transform.py"]
+
+ENTRYPOINT ["python", "embeddings_load.py"]

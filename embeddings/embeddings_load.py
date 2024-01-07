@@ -4,10 +4,11 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams
 from qdrant_client.http.models import PointStruct
 import uuid
+import sys
 
 
-def main():
-    with open("transcripts.json") as f:
+def main(file_path, db_host, db_port, collection_name):
+    with open(file_path) as f:
         s = f.read()
         
     json_data = json.loads(s).values()
@@ -20,9 +21,9 @@ def main():
 
     embeddings = model.encode(sentences, convert_to_tensor=True)
     
-    client = QdrantClient("localhost", port=6333)
+    client = QdrantClient(db_host, port=db_port)
 
-    collection = "MIT6.824"
+    collection = collection_name
     client.create_collection(
         collection_name=collection,
         vectors_config=VectorParams(size=384, distance=Distance.COSINE),
@@ -49,4 +50,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
