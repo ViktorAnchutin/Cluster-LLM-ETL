@@ -1,0 +1,14 @@
+executable              = run_embeddings.sh
+
+log                     = log/emb.log
+output                  = log/emb.out
+error                   = log/emb.err
+
+should_transfer_files   = No
+#when_to_transfer_output = ON_EXIT
+
+request_cpus            = 1
+request_memory          = 512M
+request_disk            = 1G
+
+queue
