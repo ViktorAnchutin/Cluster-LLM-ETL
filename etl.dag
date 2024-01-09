@@ -1,1 +1,4 @@
 JOB A extract_job.sub
+JOB B embeddings_job.sub
+
+PARENT A CHILD B
