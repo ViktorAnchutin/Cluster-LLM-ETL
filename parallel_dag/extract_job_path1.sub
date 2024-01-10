@@ -1,0 +1,16 @@
+# sleep.sub -- simple sleep job
+
+executable              = path1/run_extract.sh
+
+log                     = log/extract.log
+output                  = log/extract.out
+error                   = log/extract.err
+
+should_transfer_files   = No
+#when_to_transfer_output = ON_EXIT
+
+request_cpus            = 1
+request_memory          = 512M
+request_disk            = 1G
+
+queue

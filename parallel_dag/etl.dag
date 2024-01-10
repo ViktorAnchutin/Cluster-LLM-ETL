@@ -1,0 +1,6 @@
+JOB A extract_job_path2.sub
+JOB B embeddings_job_path2.sub
+JOB C extract_job_path1.sub
+JOB D embeddings_job_path1.sub
+PARENT A CHILD B
+PARENT C CHILD D
