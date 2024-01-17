@@ -3,8 +3,18 @@ from sentence_transformers import SentenceTransformer
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams
 from qdrant_client.http.models import PointStruct
+from qdrant_client.http.exceptions import UnexpectedResponse
 import uuid
 import sys
+
+def to_point(vector, payload):
+    return PointStruct(id = str(uuid.uuid4()), vector = vector, payload = payload)
+
+def create_points(vectors, data):
+    points = []
+    for i, item in enumerate(data):
+        points.append(to_point(vectors[i], item))
+    return points
 
 
 def main(file_path, db_host, db_port, collection_name):
@@ -24,19 +34,15 @@ def main(file_path, db_host, db_port, collection_name):
     client = QdrantClient(db_host, port=db_port)
 
     collection = collection_name
-    client.create_collection(
-        collection_name=collection,
-        vectors_config=VectorParams(size=384, distance=Distance.COSINE),
-    )
 
-    def to_point(vector, payload):
-        return PointStruct(id = str(uuid.uuid4()), vector = vector, payload = payload)
-
-    def create_points(vectors, data):
-        points = []
-        for i, item in enumerate(data):
-            points.append(to_point(vectors[i], item))
-        return points
+    try:
+        client.create_collection(
+            collection_name=collection,
+            vectors_config=VectorParams(size=384, distance=Distance.COSINE),
+        )
+    except UnexpectedResponse as err:
+        if "already exists" not in str(err.content):
+            raise err
 
     points = create_points(embeddings, list(json_data))
 
@@ -45,8 +51,6 @@ def main(file_path, db_host, db_port, collection_name):
         wait=True,
         points=points
     )
-
-
 
 
 if __name__ == "__main__":
