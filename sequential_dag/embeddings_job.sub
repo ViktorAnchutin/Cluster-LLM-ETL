@@ -1,5 +1,5 @@
 executable              = run_embeddings.sh
-
+arguments               = sequential_dag/transcripts.json 34.224.15.87 80 name1
 log                     = log/emb.log
 output                  = log/emb.out
 error                   = log/emb.err
