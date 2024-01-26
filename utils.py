@@ -36,6 +36,7 @@ def create_embeddings_job(db_address, db_port, col_name):
 def mk_dirs(working_dirs):
     for dir in working_dirs:
         os.mkdir(dir)
+        os.chmod(dir,777)
 
 
 def split_file(input_file, output_dirs, output_name):
