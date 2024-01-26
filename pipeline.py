@@ -4,7 +4,6 @@ import configparser
 from utils import *
 
 def main():
-    print(os.getcwd())
     config = configparser.ConfigParser()
     config.read('config.ini')
     videos_path = config.get("def",'videos_list')
