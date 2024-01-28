@@ -31,6 +31,20 @@ files.
 4. Embeddings are loaded into vector database
 
 
+## DAG generation
+
+The input file is a .txt file with ids of the all the videos which should be processed and loaded into a vector db.
+
+The `pipeline.py` script does the following:
+
+Split input data into smaller files
+Generate DAG to process smaller files
+Submit DAG to HTCondor cluster
+The number of parallel pipelines can be configured and specified in the `config.ini` file.
+
+![](./imgs/gdag.png)
+
+
 ## Configuration for NFS
 
 Submission host and executors must have the same parameters in /etc/condor/condor_config:
