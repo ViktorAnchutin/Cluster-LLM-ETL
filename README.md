@@ -37,9 +37,10 @@ The input file is a .txt file with ids of the all the videos which should be pro
 
 The `pipeline.py` script does the following:
 
-Split input data into smaller files
-Generate DAG to process smaller files
-Submit DAG to HTCondor cluster
+- Split input data into smaller files
+- Generate DAG to process smaller files
+- Submit DAG to HTCondor cluster
+  
 The number of parallel pipelines can be configured and specified in the `config.ini` file.
 
 ![](./imgs/gdag.png)
